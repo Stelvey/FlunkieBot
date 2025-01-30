@@ -1,13 +1,13 @@
 import logging
 import os
 
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables
+
 from google import genai
 from google.genai import types
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=GEMINI_API_KEY)
-
-from dotenv import load_dotenv
-load_dotenv()  # take environment variables
 
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
