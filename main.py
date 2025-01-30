@@ -1,6 +1,6 @@
 from google import genai
 from google.genai import types
-client = genai.Client(api_key="GEMINI_API_KEY")
+client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
 import logging
 import os
