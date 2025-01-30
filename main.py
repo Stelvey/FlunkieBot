@@ -1,6 +1,11 @@
 import logging
 import os
 
+
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables
+
+
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
@@ -32,6 +37,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 def main() -> None:
     # Start the bot
     # Create the Application and pass it your bot's token
+    print(os.environ.get("TOKEN"))
     application = Application.builder().token(os.environ.get("TOKEN")).build()
 
     # Once message is received — echo it
