@@ -1,4 +1,5 @@
 import logging
+import os
 
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
@@ -31,7 +32,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 def main() -> None:
     # Start the bot
     # Create the Application and pass it your bot's token
-    application = Application.builder().token("TOKEN").build()
+    application = Application.builder().token(os.environ.get("TOKEN")).build()
 
     # Once message is received — echo it
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
