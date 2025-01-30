@@ -1,9 +1,10 @@
-from google import genai
-from google.genai import types
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-
 import logging
 import os
+
+from google import genai
+from google.genai import types
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+client = genai.Client(api_key="GEMINI_API_KEY")
 
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables
@@ -72,8 +73,8 @@ def huyGemini(input):
 def main() -> None:
     # Start the bot
     # Create the Application and pass it your bot's token
-    print(os.environ.get("TOKEN"))
-    application = Application.builder().token(os.environ.get("TOKEN")).build()
+    TELEGRAM_API_KEY = os.environ.get("TELEGRAM_API_KEY")
+    application = Application.builder().token(TELEGRAM_API_KEY).build()
 
     # Once message is received — echo it
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
