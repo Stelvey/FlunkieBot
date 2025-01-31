@@ -38,11 +38,12 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     output = 0
 
     # Below are all bot functions for any update
-    if random.randrange(0, 100) <= 3:
-        output = huyGemini(update.message.text)
 
-    if random.randrange(0, 100) <= 100:
+    if random.randrange(0, 100) < 100:
         output = checkYes(update.message.text)
+
+    if random.randrange(0, 100) < 3:
+        output = huyGemini(update.message.text)
 
     # If the bot wants to say something — it does
     if output:
@@ -87,6 +88,8 @@ def huyGemini(input):
             "output: ХУЕРОЧКА!",
             "input: Проверка?",
             "output: Хуерка",
+            "input: да",
+            "output: хуеда",
             f"input: {input}",
             "output: "
         ]
