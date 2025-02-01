@@ -39,14 +39,20 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # Below are all bot functions for any update
 
-    if random.randrange(0, 100) < 100:
-        output = checkYes(update.message.text)
-
     if random.randrange(0, 100) < 3:
-        output = huyGemini(update.message.text)
+        huyResult = huyGemini(update.message.text)
+        if huyResult:
+            output = huyResult
 
     if random.randrange(0, 100) < 100:
-        output = checkHaiku(update.message.text, update.message.from_user.first_name)
+        yesResult = checkYes(update.message.text)
+        if yesResult:
+            output = yesResult
+
+    if random.randrange(0, 100) < 100:
+        haikuResult = checkHaiku(update.message.text, update.message.from_user.first_name)
+        if haikuResult:
+            output = haikuResult
 
     # If the bot wants to say something — it does
     if output:
