@@ -1,4 +1,4 @@
-import logging, os, random, re
+import logging, os, random, re, string
 
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables
@@ -45,9 +45,12 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if random.randrange(0, 100) < 3:
         output = huyGemini(update.message.text)
 
+    if random.randrange(0, 100) < 100:
+        output = checkHaiku(update.message.text, update.message.from_user.first_name)
+
     # If the bot wants to say something — it does
     if output:
-        await update.message.reply_text(output)
+        await update.message.reply_text(output, parse_mode="html")
     else:
         return
 
@@ -142,6 +145,32 @@ def checkYes(input):
         output += decoration
 
     return output
+
+
+def checkHaiku(input, inputter):
+    translator = str.maketrans(string.punctuation, ' ' * len(string.punctuation))
+    cleanText = input.lower().translate(translator)
+
+    vowels = "ауоеияюёэы"
+    words = cleanText.split()
+    syllableCount = 0
+    lineCount = 0
+    output = "<i>"
+
+    for word in words:
+        for char in word:
+            if char in vowels:
+                syllableCount += 1
+        match syllableCount:
+            case 5 | 12:
+                output = output + word + "\n"
+                lineCount += 1
+            case 17:
+                output = output + word + "</i>" + "\n\n" + "— " + inputter
+                if lineCount == 2:
+                    return output
+            case _:
+                output = output + word + " "
 
 
 
