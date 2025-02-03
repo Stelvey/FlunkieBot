@@ -211,6 +211,7 @@ def checkHaiku(input, inputter):
             if char in vowels:
                 syllableCount += 1
         if syllableCount == countBefore:
+            output = output + word + " "
             continue
         match syllableCount:
             case 5 | 12:
