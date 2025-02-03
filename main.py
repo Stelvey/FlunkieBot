@@ -67,7 +67,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
         ping = next(iter(update.message.parse_entities(["mention"]).values()))
         if ping.strip("@") == context.bot.username:
-            ryanResult = ryanGemini(update.message.text.removeprefix(ping + " "))
+            ryanResult = ryanGemini(update.message.text.removeprefix(ping + " ").removesuffix(" " + ping))
             if ryanResult:
                 output = ryanResult
     except:
@@ -84,7 +84,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 # AI: Answer inappropriately on random occasions
 def huyGemini(input):
     response = client.models.generate_content(
-        model="gemini-exp-1206",
+        model="gemini-2.0-flash-exp",
         config=types.GenerateContentConfig(
             temperature=1,
             top_p=0.95,
@@ -132,7 +132,7 @@ def huyGemini(input):
 
 # AI: Chat with users
 chat = client.chats.create(
-    model="gemini-exp-1206",
+    model="gemini-2.0-flash-exp",
     config=types.GenerateContentConfig(
         temperature=1,
         top_p=0.95,
