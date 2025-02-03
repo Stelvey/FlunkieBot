@@ -205,7 +205,7 @@ def checkHaiku(input, inputter):
     lineCount = 0
     output = "<i>"
 
-    for word in words:
+    for i, word in enumerate(words):
         countBefore = syllableCount
         for char in word:
             if char in vowels:
@@ -219,7 +219,7 @@ def checkHaiku(input, inputter):
                 lineCount += 1
             case 17:
                 output = output + word + "</i>" + "\n\n" + "— " + inputter
-                if lineCount == 2:
+                if lineCount == 2 and i == len(words) - 1:
                     return output
             case _:
                 output = output + word + " "
