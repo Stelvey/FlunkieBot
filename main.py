@@ -49,7 +49,7 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     output = 0
 
     # Below are all bot functions for any update
-    if random.randrange(0, 100) < 3:
+    if random.randrange(0, 100) < 2:
         huyResult = huyGemini(update.message.text)
         if huyResult:
             output = huyResult
